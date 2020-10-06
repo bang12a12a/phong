@@ -1,0 +1,78 @@
+﻿@model MyMusicSheet.Models.Model.NguoiDung.SanPhamModel
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listsanphamtheonguoidung = (List<MyMusicSheet.Models.EF.SanPham>)ViewBag.ListSanPham;
+}
+<br />
+<br />
+<div class="container chitietsanpham">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Url.Content("/Images/"+Model.Anh)" width="80%" />
+        </div>
+        <div class="col-md-6">
+            <span class="ctsp-tensanpham">@Model.Ten</span>
+            <br />
+            <span class="ctsp-tentacgia">by @Model.TenNguoiDung</span>
+            <br />
+            <span class="ctsp-loai">@Model.ListTenLoai</span>
+            <br />
+            <span class="ctsp-gia">$@Model.Gia</span> <br />
+            <hr />
+            <input type="type" name="name" value="@Model.Video" style="display:none;" id="linkvideosanpham" />
+            <div id="videochitietsanpham"></div>
+            <a href="/GioHangNguoiDung/ThemGioHang?id=@Model.Id" class="btn btn-success">Add to cart</a>
+        </div>
+    </div>
+    <hr />
+    <div class="title-ctsp-listsp-nguoidung">
+        <span style="font-size:20px; font-weight:bold; color:blue;">@Model.TenNguoiDung</span>
+        <span>'s OTHER SHEETS</span>
+    </div>
+    <br />
+    <div class="row">
+        @foreach (var item in @listsanphamtheonguoidung)
+        {
+
+            <div class="col-xl-2 col-lg-2 col-md-2 col-2">
+                <div class="single-product mb-60">
+                    <div class="product-img">
+                        <a href="/HomeNguoiDung/ChiTietSanPham?idsanpham=@item.Id">
+                            <img src="@Url.Content("/Images/"+item.Anh)" alt="" width="100%">
+                        </a>
+                    </div>
+                    <div class="product-caption">
+                        <span class="homenguoidung-tensanpham">
+                            <a href="/HomeNguoiDung/ChiTietSanPham?idsanpham=@item.Id">
+                                @if (item.Ten.Length >= 15)
+                                {
+                                    @item.Ten.Substring(0, 15)
+                                }
+                                else
+                                {
+                                    @item.Ten
+                                }
+
+                            </a>
+                        </span>
+                        <div class="price">
+                            <ul>
+                                <li>$@item.Gia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section chitietsanphamnguoidung{
+    <script>
+        var linkvideo = $('#linkvideosanpham').val();
+        $('#videochitietsanpham').html(linkvideo);
+    </script>
+}
+

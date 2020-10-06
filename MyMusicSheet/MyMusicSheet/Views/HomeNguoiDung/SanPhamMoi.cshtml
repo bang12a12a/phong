@@ -1,0 +1,48 @@
+﻿@model List<MyMusicSheet.Models.Model.NguoiDung.SanPhamModel>
+
+@foreach (var item in Model)
+{
+    <div class="col-xl-2 col-lg-2 col-md-2 col-6">
+        <div class="single-product mb-60">
+            <div class="product-img">
+                <a href="/HomeNguoiDung/ChiTietSanPham?id=@item.Id">
+                    <img src="@Url.Content("/Images/"+item.Anh)" alt="" width="100%;">
+                </a>
+            </div>
+            <div class="product-caption">
+                <span class="homenguoidung-tensanpham">
+                    <a href="/HomeNguoiDung/ChiTietSanPham?id=@item.Id">
+                        @if (item.Ten.Length >= 15)
+                        {
+                            @item.Ten.Substring(0, 15)
+                        }
+                        else
+                        {
+                            @item.Ten
+                        }
+
+                    </a>
+                </span>
+                <br />
+                <span class="homenguoidung-tennguoidung">
+                    <a href="#">
+                        @if (item.TenNguoiDung.Length >= 15)
+                        {
+                            @item.TenNguoiDung.Substring(0, 15)
+                        }
+                        else
+                        {
+                            @item.TenNguoiDung
+                        }
+
+                    </a>
+                </span>
+                <div class="price">
+                    <ul>
+                        <li>$@item.Gia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

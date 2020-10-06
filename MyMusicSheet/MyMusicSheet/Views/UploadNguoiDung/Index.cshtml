@@ -1,0 +1,928 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var loai = (List<MyMusicSheet.Models.EF.Loai>)ViewBag.Loai;
+}
+
+<div class="container">
+    <div class="anhbia-nguoidung">
+        <img src="~/Content/nguoidung/img/category-banner-img.jpg" width="100%" style="margin-top:-50px;" />
+    </div>
+    <div class="anhdaidien-nguoidung">
+        <img src="~/Content/nguoidung/img/nav-men-banner.jpg" />
+    </div>
+    <br />
+    <div style="width: 100%">
+        <div class="gioithieu-nguoidunguploadsanpham center">
+            <span>
+                Khi họp báo trước trận, tôi cũng đã chia sẻ rằng họ hòa nhập khá tốt. Nhưng thực sự việc hòa nhập dành cho họ chưa đủ thời gian. Hôm nay mới là trận đấu chính thức đầu tiên của họ. Đấu tập và thi đấu chính thức rất khác nhau. Trận đấu này cũng giúp họ phần nào hiểu về bóng đá Việt Nam và tôi sẽ giúp họ hòa nhập tốt hơn trong thời gian tới
+            </span>
+            <br />
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <span class="gioithieu-facebook">
+                                    <a href="https://www.facebook.com/" target="_blank">
+                                        <img src="~/Content/nguoidung/img/facebook-gioithieu-nguoidung.png" />
+                                    </a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="gioithieu-youtube">
+                                    <a href="https://www.youtube.com/watch?v=FRsYECV1vk0" target="_blank">
+                                        <img src="~/Content/nguoidung/img/youtube-gioithieu-sanpham.png" />
+                                    </a>
+                                </span>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+
+
+            
+
+            <br />
+        </div>
+
+    </div>
+    <div class="danhsachsanpham">
+        @*<div>
+            <h4>Sheets</h4>
+        </div>*@
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" id="themsanpham" class="btn btn-primary" data-toggle="modal" data-target="#modalsanpham" onclick="clearTextBox()">
+                    <span>
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard
+                    </span>
+                </button>
+                <button type="button" id="themsanpham" class="btn btn-success" data-toggle="modal" data-target="#modalsanpham" onclick="clearTextBox()">
+                    <i class="fas fa-upload" style="margin-left:4px;"></i>
+                    <span>Upload</span>
+                </button>
+
+
+            </div>
+            <div class="col-md-9 row">
+                <div class="col-md-5"></div>
+                <div class="col-md-5">
+                    <input type="text" name="txtSearch" placeholder="Search your sheet" class="txtSearch form-control" />
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-warning" id="search_sanphamnguoidung">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+
+        <br />
+
+        <table class="table table-bordered table-hover" width="100%">
+            <thead>
+                <tr>
+                    <th width="5%" class="center">
+                        Order
+                    </th>
+                    <th width="25%" class="center">
+                        Name sheet
+                    </th>
+                    <th width="20%" class="center">
+                        Category
+                    </th>
+                    <th width="15%" class="center">
+                        Price
+                    </th>
+                    <th width="15%" class="center">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+
+        </table>
+        <div class="center" id="loading-sanpham">
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading.....
+        </div>
+        <div class="card-footer" style="background-color:white;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="load-pagination"></ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade " id="modalsanpham" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row" style="width:104%;">
+                    <div class="col-md-11">
+                        <span class="modal-title-uploadnguoidung" id="myModalLabel">Upload file</span>
+                    </div>
+                    <div class="col-md-1" style="float:right; position:relative;top:-6px; color:white;">
+                        <button type="button" class="close" id="closemodalsanpham" data-dismiss="modal">×</button>
+                    </div>
+                    @*<div class="col-md-3">
+                        <button class="btn-step-upload" id="btn-step1-upload">
+                            <span>Upload for sale</span>
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn-step-upload" id="btn-step2-upload">
+                            <span>Song Info</span>
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn-step-upload" id="btn-step3-upload">
+                            <span>Sales Info</span>
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn-step-upload" id="btn-step4-upload">
+                            <span>Upload</span>
+                        </button>
+                    </div>*@
+                </div>
+                
+            </div>
+            <div class="modal-body modal-upload-nguoidung-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="upload-left" id="uploadfilemodal">
+                            <div class="anh-upload-nguoidung" style="display:none;">
+
+                                <img id="pictureUpload" style="border:1px solid black; width: 350px; height:417px;" />
+                                <div style="float:right;">
+                                    <button type="button" id="showupload" style="position: absolute;
+                                    right: 20px;
+                                    top: 1px;
+                                    background-color: white;
+                                    border: none;
+                                    font-size: 20px;
+                                    color: red;">
+                                        ×
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="upload-file-nguoidung-left">
+                                <span class="btnupload-nguoidung">
+                                    <img id="bieutuong-uploadnguoidung" width="30%" src="~/Content/nguoidung/img/upload_pdf_nguoidung.gif" />
+                                    @*<i class="fas fa-upload" style="color:#6c757d;" id="bieutuong-uploadnguoidung"></i>*@
+                                </span>
+                                <br />
+                                <br />
+                                <br />
+                                <input type="text" name="name" value="" id="hinhanhsanphamadmin" style="display:none;" />
+                                <input type="text" name="name" value="" id="duongdanfileuploadnguoidung" style="display:none;" />
+                                <input class="btn btn-success" type="file" name="fileUpload" accept="application/pdf" value="" id="picture" style="display:none;" />
+                                <br />
+                                <br />
+                                <div class="tieude-uploadfile-uploadnguoidung">
+                                    <span style="color:#6c757d;">Drag and drop a file that you want to upload</span>
+                                    <span style="color:#6c757d;">(.pdf)</span>
+                                </div>
+                            </div>
+                            <div class="danguploadfilepdf-nguoidung" id="danguploadfile" style="display:none;">
+                                <img src="~/Content/nguoidung/img/dangupload-filepdf-nguoidung.gif" style="width: 144%;margin-top:20px;margin-left: -73px;" />
+                                @*<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:90%">90%</div>*@
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-8 ">
+                        <div class="upload-right">                        
+                            <input type="text" class="form-control" id="idsanphamadmin" placeholder="" style="display:none;" />
+                            <br />
+                            <div class="form-uploadname row">
+                                <div class="col-md-2">
+                                    <label for="NoiDung" style="position:relative;top:8px;">Name<span class="star-red">(*)</span>:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="tensanphamnguoidung" placeholder="Enter name" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-uploadcategory row">
+                                <div class="col-md-2">
+                                    <label for="NoiDung" class="category-title-td">Category<span class="star-red">(*)</span>:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="content row">
+                                        @foreach (var item in loai)
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" value="@item.Id" name="ckb_loai">
+                                                        @item.TenLoai
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-uploadprice row">
+                                <div class="col-md-2">
+                                    <label for="GiaBan" style="position:relative;top:8px;">Price<span class="star-red">(*)</span>:</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <input min="0" type="number" class="form-control" id="giabansanphamadmin" placeholder="$" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-checkbox-free-upload">
+                                        <input type="checkbox" name="name" value="" id="checkbox-pricefree-upload" />
+                                        <span>Free</span>
+                                    </div>
+                                 </div>
+                                <div class="col-md-5">
+                                    <button class="btn btn-success" id="upload-filemidi">Upload File Midi</button>
+                                    <div style="display:none;" id="div-uploadfilemidi" class="row">
+                                        <span id="tenfilemidishow" style="position: relative;" class="col-md-12"></span>
+                                        <button class="" id="btn-xoafilemidi" style="position: relative;
+                                            top: -33px;
+                                            left: 267px;
+                                            height: 11px;
+                                            width: 18px;">x</button>
+                                    </div>
+                                    <input type="text" name="name" value="" id="duongdanfilemidi-uploadnguoidung" style="display:none;" height="30px" />
+                                    <input class="" type="file" name="" accept=".mid" value="" id="filemidi-upload" style="display:none;" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-uploadurlvideo row">
+                                <div class="col-md-2">
+                                    <label for="UrlVideo" style="position:relative;top:8px;">Url Video:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="input-price-video">
+                                        <input type="text" class="form-control" id="urlvideo-uploadnguoidung" placeholder="Url video youtube" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-uploaddescription row">
+                                <div class="col-md-2">
+                                    <label for="GiaBan">Description:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea rows="3" class="form-control" id="motasanphamnguoidung" style="width:100%;"></textarea>
+                                    @*<input type="text" class="form-control col-md-8" id="motasanphamnguoidung" placeholder="mô tả" name="" />*@
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-4">
+                        <div id="videochitietsanpham" style=""></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <label for="GiaBan">Description:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control col-md-8" id="motasanphamnguoidung" placeholder="mô tả" name="" />
+                        </div>
+                    </div>
+                    <div id="step3" class="container tab-pane fade">
+                        <div class="step3-uploadnguoidung">
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="br-urlvideo"><br /></div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="GiaBan">Price<span class="star-red">(*)</span>:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" id="giabansanphamadmin" placeholder="giá bán" />
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="GiaBan">Description:</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control col-md-8" id="motasanphamnguoidung" placeholder="mô tả" name="" />
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="videochitietsanpham" style=""></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="step4" class="container tab-pane fade">
+                        <div class="step4-uploadnguoidung">
+
+                        </div>
+                    </div>*@
+                </div>
+                @*<form>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#step1">Upload for sale</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#step2">Song Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#step3" id="btn-step3">Sales Info</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#step4">Upload</a>
+                        </li>
+                    </ul>
+
+
+                    <div class="tab-content">
+                        <div id="step1" class="container tab-pane active">
+                            <div class="step1-uploadnguoidung">
+                                <div class="" id="uploadfilemodal">
+
+                                    <div>
+                                        <span class="btnupload-nguoidung">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <input type="text" name="name" value="" id="hinhanhsanphamadmin" style="display:none;" />
+                                        <input type="text" name="name" value="" id="duongdanfileuploadnguoidung" style="display:none;" />
+                                        <input class="btn btn-success" type="file" name="fileUpload" accept="application/pdf" value="" id="picture" style="" />
+                                        <br />
+                                        <br />
+                                        <div class="progress" id="danguploadfile" style="display:none; width:40%; margin:auto;">
+                                            <div class="progress-bar progress-bar-striped bg-danger" style="width:100%"></div>
+                                        </div>
+                                        <div class="progress " id="uploadfilethanhcong" style="display:none; width:40%;margin:auto;">
+                                            <div class="progress-bar progress-bar-striped" style="width:100% ;  "></div>
+                                        </div>
+                                    </div>
+                                    <div class="tieude-uploadfile-uploadnguoidung">
+                                        <span>Drag and drop a file that you want to upload</span>
+                                        <br />
+                                        <span>(.pdf)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="step2" class="container tab-pane fade">
+                            <div class="step2-uploadnguoidung">
+                                <input type="text" class="form-control" id="idsanphamadmin" placeholder="" style="display:none;" />
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-8 ">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="NoiDung">Name<span class="star-red">(*)</span>:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="tensanphamnguoidung" placeholder="Enter name" />
+                                            </div>
+
+                                            <div class="br-tensanpham">
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="form-group row" id="modalloaisanpham">
+                                            <div class="col-md-4">
+                                                <label for="NoiDung">Category<span class="star-red">(*)</span>:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="content row">
+                                                    @foreach (var item in loai)
+                                                    {
+                                                        <div class="col-md-6">
+                                                            <div class="form-check-inline">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" value="@item.Id" name="ckb_loai">
+                                                                    @item.TenLoai
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="urlvideomodal">
+                                            <div class="col-md-4">
+                                                <label for="GiaBan">Url Video:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="urlvideo-uploadnguoidung" placeholder="Url video youtube" name="tiente" />
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="br-urlvideo"><br /></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img id="pictureUpload" width="200" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step3" class="container tab-pane fade">
+                            <div class="step3-uploadnguoidung" >
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="br-urlvideo"><br /></div>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="GiaBan">Price<span class="star-red">(*)</span>:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="number" class="form-control" id="giabansanphamadmin" placeholder="giá bán" />
+                                            </div>
+                                
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="GiaBan">Description:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control col-md-8" id="motasanphamnguoidung" placeholder="mô tả" name="" />
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="videochitietsanpham" style=""></div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div id="step4" class="container tab-pane fade">
+                            <div class="step4-uploadnguoidung">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                   
+                </form>*@
+            </>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnclosesanpham">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAdd">Upload</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section uploadsanphamnguoidung{
+    <script>
+        $('#upload-filemidi').hide();
+        $('#btnAdd').prop('disabled', true);
+        $('#btn-xoafilemidi').click(function () {
+            $('#div-uploadfilemidi').hide();
+            $('#upload-filemidi').show();
+            $('#duongdanfilemidi-uploadnguoidung').val('');
+            $('#filemidi-upload').val('');
+        }); 
+        $('#showupload').click(function () {
+            $('.anh-upload-nguoidung').hide();
+            $('.upload-file-nguoidung-left').show();
+            $('#picture').val('');
+            $('#duongdanfileuploadnguoidung').val('');
+            $('#hinhanhsanphamadmin').val('');
+        }); 
+        $('#checkbox-pricefree-upload').click(function () {
+            $('#giabansanphamadmin').val('0.00');
+        }); 
+        $(document).ready(function () {
+            
+            $('#btn-step3').click(function () {
+                function getId(url) {
+                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+
+                    if (match && match[2].length == 11) {
+                        return match[2];
+                    } else {
+                        return 'error';
+                    }
+                }
+                var urlYoutube = $('#urlvideo-uploadnguoidung').val();
+                var myId = getId(urlYoutube);
+                $('#myCode').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
+                var video = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>';
+                var video1 = '<iframe width="200" height="115" src="https://www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>';
+                $('#videochitietsanpham').html(video1);
+            });
+            
+            loaddata(null, 1);
+            
+        });
+        function loaddata(txtSeach, page) {
+            $.ajax({
+                url: "/UploadNguoiDung/List",
+                type: "GET",
+                data: { txtSearch: txtSeach, page: page },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#loading-sanpham').hide();
+                    var html = '';
+                    $.each(result.data, function (key, item) {
+                        html += '<tr>';
+                        html += '<td width="5%" class="center">' + item.STT + '</td>';
+                        html += '<td width="25%">' + item.Ten + '</td>';
+                        html += '<td width="20%">' + item.ListTenLoai + '</td>';
+                        html += '<td width="15%"  class="table-center">$' + item.Gia + '</td>';
+                        html += '<td width="15%">  <button class="btn btn-primary" onclick="getbyID(' + item.Id + ')"><i class="fas fa-edit"></i>Edit</button>  <button class="btn btn-danger" onclick="Delele(' + item.Id + ')"><i class="fas fa-trash-alt"></i>Delete</button></td>';
+                        html += '</tr>';
+                        var pagination_string = "";
+                        var pageCurrent = result.pageCurrent;
+                        var numSize = result.numSize;
+
+                        //create button previous
+                        if (pageCurrent > 1) {
+                            var pagePrevious = pageCurrent - 1;
+                            pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                        }
+
+                        for (i = 1; i <= numSize; i++) {
+                            if (i == pageCurrent) {
+                                pagination_string += '<li class="page-item active"><a  class="page-link" data-page=' + i + '>' + pageCurrent + '</a></li>';
+                            } else {
+                                pagination_string += '<li class="page-item"><a  class="page-link" data-page=' + i + '>' + i + '</a></li>';
+                            }
+                        }
+
+                        //create button next
+                        if (pageCurrent > 0 && pageCurrent < numSize) {
+                            var pageNext = pageCurrent + 1;
+                            pagination_string += '<li class="page-item"><a href="" class="page-link"  data-page=' + pageNext + '>Next</a></li>';
+                        }
+
+                        //load pagination
+                        $("#load-pagination").html(pagination_string);
+
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        $("body").on("click", ".pagination li a", function (event) {
+            event.preventDefault();
+            var page = $(this).attr('data-page');
+
+            //load event pagination
+            var txtSearch = $(".txtSearch").val();
+            if (txtSearch != "") {
+                loaddata(txtSearch, page)
+            }
+            else {
+                loaddata(null, page);
+            }
+
+        });
+        $("#search_sanphamnguoidung").click(function () {
+            var txtSearch = $(".txtSearch").val();
+            if (txtSearch != "") {
+                loaddata(txtSearch, 1)
+            }
+            else {
+                loaddata(null, 1);
+            }
+
+        });
+        
+        $('#upload-filemidi').click(function () {
+            $('#filemidi-upload').trigger('click');
+        });
+        $('#filemidi-upload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#filemidi-upload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                var tenfile = $('#filemidi-upload').val();
+                if (tenfile.length > 30) {
+                    tenfile = tenfile.substr(tenfile.length - 30, tenfile.length);
+                }
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/UploadNguoiDung/UploadFileMidi',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlFileMidi) {
+                           
+                            $('#tenfilemidishow').text(tenfile);
+                            $('#div-uploadfilemidi').show();
+                            $('#upload-filemidi').hide();
+                            $('#duongdanfilemidi-uploadnguoidung').val(urlFileMidi);
+                            $("#checkbox-filemidi-upload").prop("checked", true);
+                        },
+                        error: function (err) {
+                            alert('Có lỗi khi upload:' + err.statusText);
+                        }
+                    })
+            }
+        });
+        
+        $('#bieutuong-uploadnguoidung').click(function () {
+            $('#picture').trigger('click');
+        });
+        $('#btnUpload').click(function () {
+            $('#picture').trigger('click');
+        });
+        $('#picture').change(function () {
+            if (window.FormData !== undefined) { 
+                var fileUpload = $('#picture').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $('#danguploadfile').show();
+                $('.upload-file-nguoidung-left').hide();
+                $('.danguploadfilepdf-nguoidung').show();
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/UploadNguoiDung/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (filePdf) {
+                            var mangfilePdf = filePdf.split('/');
+                            var urlImage = mangfilePdf[0];
+                            var sotrang = mangfilePdf[1];
+                            alert(urlImage + "-" + sotrang);
+                            $('#danguploadfile').hide();
+                            $('#uploadfilethanhcong').show();
+                            $('#pictureUpload').attr('src', '/Images/' + urlImage + '1.jpg');
+                            $('.anh-upload-nguoidung').show();
+                            $('.upload-file-nguoidung-left').hide();
+                            $('#duongdanfileuploadnguoidung').val(urlImage + '.pdf');
+                            $('#hinhanhsanphamadmin').val(urlImage + '1.jpg');
+                            $('#upload-filemidi').show();
+                            $('#btnAdd').prop("disabled", false);
+                        },
+                        error: function (err) {
+                            alert('Có lỗi khi upload:' + err.statusText);
+                        }
+
+                    })
+            }
+        });
+
+        $('#btnAdd').click(function () {
+            
+            function getId(url) {
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+
+                if (match && match[2].length == 11) {
+                    return match[2];
+                } else {
+                    return 'error';
+                }
+            }
+            var urlYoutube = $('#urlvideo-uploadnguoidung').val();
+            var myId = getId(urlYoutube);
+
+            $('#myId').html(myId);
+
+            $('#myCode').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>');
+            var video = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + myId + '" frameborder="0" allowfullscreen></iframe>';
+
+            var listloai='';
+            $('input[name="ckb_loai"]:checked').each(function () {
+                listloai += $(this).val() + ',';
+            });
+            listloai = listloai.slice(0, -1);
+            var res = validate(0);
+            if (res == false) {
+                return false;
+            }
+            var empObj = {
+                Ten: $('#tensanphamnguoidung').val(),
+                Anh: $('#hinhanhsanphamadmin').val(),
+                Gia: $('#giabansanphamadmin').val(),
+                ListLoai: listloai,
+                DuongDan: $('#duongdanfileuploadnguoidung').val(),
+                MoTa: $('#motasanphamnguoidung').val(),
+                Video: video,
+                DuongDanFileMidi: $('#duongdanfilemidi-uploadnguoidung').val(),
+                MoTa: $('#motasanphamnguoidung').val(),
+            };
+            $.ajax({
+                url: "/UploadNguoiDung/Upload",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    loaddata(null, 1);
+
+                    window.location.href = '/HomeNguoiDung/ChiTietSanPham?id=' + result;
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        });
+
+        function getbyID(masanpham) {
+            
+            $.ajax({
+                url: "/UploadNguoiDung/GetbyID/" + masanpham,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#themsanpham').click();
+                    $('#modalloaisanpham').hide();
+                    $('#uploadfilemodal').hide();
+                    $('#urlvideomodal').hide();
+                    $('.br-urlvideo').hide();
+                    $('.br-tensanpham').hide();
+                    $('#idsanphamadmin').val(result.Id);
+                    $('#tensanphamnguoidung').val(result.Ten);
+                    $('#giabansanphamadmin').val(result.Gia);
+                    $('#pictureUpload').attr('src', '/Images/' + result.Anh);
+                    $('#motasanphamnguoidung').val(result.MoTa);
+                    $("#modalsanpham").modal("show");
+                    $('#btnUpdate').show();
+                    $('#showupload').hide();
+                    $('.upload-file-nguoidung-left').hide();
+                    $('#uploadfilemodal').show();
+                    $('.anh-upload-nguoidung').show();
+                    $('.form-uploadcategory').hide();
+                    $('.form-uploadurlvideo').hide();
+                    $('#btnAdd').hide();
+                    $('#btnSave').show();
+                    $('#myModalLabel').text('Edit');
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+
+        }
+
+        $('#btnSave').click(function () {
+            var res = validate(1);
+            if (res == false) {
+                return false;
+            }
+            var empObj = {
+                Id: $('#idsanphamadmin').val(),
+                Ten: $('#tensanphamnguoidung').val(),
+                Gia: $('#giabansanphamadmin').val(),
+                MoTa: $('#motasanphamnguoidung').val(),
+            };
+            $.ajax({
+                url: "/UploadNguoiDung/Update",
+                data: JSON.stringify(empObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    loaddata(null, 1);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        });
+        function Delele(ID) {
+            var ans = confirm("Bạn có chắc muốn xóa không?");
+            if (ans) {
+                $.ajax({
+                    url: "/UploadNguoiDung/Delete/" + ID,
+                    type: "POST",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        loaddata(null, 1);
+                        alert('Bạn đã xóa sản phẩm thành công');
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            }
+        }
+
+        function clearTextBox() {
+            $('#modalloaisanpham').show();
+            $('#uploadfilemodal').show();
+            $('#picture').val('');
+            $('#urlvideomodal').show();
+            $('.br-urlvideo').show();
+            $('.br-tensanpham').show();
+            $('#idsanphamadmin').val('');
+            $('#tensanphamnguoidung').val('');
+            $('#giabansanphamadmin').val('');
+            $('#urlvideo-uploadnguoidung').val('');
+            $('#checkbox-pricefree-upload').prop("checked", false);
+            $('#hinhanhsanphamadmin').val('');
+            $('#motasanphamnguoidung').val(''),
+            $('#duongdanfilemidi-uploadnguoidung').val(''),
+            $('#duongdanfilemidi-uploadnguoidung').hide(),
+            $('#pictureUpload').attr('src', '');
+            $('#myModalLabel').text('Upload file');
+            $('#btnUpdate').hide();
+            $('#upload-filemidi').hide();
+            $('.anh-upload-nguoidung').hide();
+            $('.div-uploadfilemidi').hide();
+            $('.upload-file-nguoidung-left').show();
+            $('input[name="ckb_loai"]').prop("checked", false);
+            $('#pictureUpload').attr('src', '');
+            $('#btnAdd').prop("disabled", true);
+            $('#btnSave').hide();
+            $('.category-title-td').css('color', 'black');
+        }
+        //Valdidation using jquery
+        function validate(check) {
+            var isValid = true;
+            if ($('#tensanphamnguoidung').val() == "") {
+                $('#tensanphamnguoidung').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#tensanphamnguoidung').css('border-color', 'lightgrey');
+            }
+
+
+            if ($('#giabansanphamadmin').val() == "") {
+                $('#giabansanphamadmin').css('border-color', 'Red');
+                isValid = false;
+            }
+            else {
+                $('#giabansanphamadmin').css('border-color', 'lightgrey');
+            }
+            var listloai = '';
+            $('input[name="ckb_loai"]:checked').each(function () {
+                listloai += $(this).val() + ',';
+            });
+            listloai = listloai.slice(0, -1);
+            if (listloai == '' && check ==0) {
+                $('.category-title-td').css('color', 'red');
+                isValid = false;
+            }
+            else {
+                $('.category-title-td').css('color', 'black');
+            }
+
+           
+
+            return isValid;
+        }
+    </script>
+
+}
+
+

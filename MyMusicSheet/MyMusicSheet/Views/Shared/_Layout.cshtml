@@ -1,0 +1,428 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>eCommerce HTML-5 Template </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/nguoidung/img/favicon.ico">
+    <link href="~/Content/nguoidung/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/Content/nguoidung/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/flaticon.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/slicknav.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/animate.min.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/slick.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/nice-select.css">
+    <link rel="stylesheet" href="~/Content/nguoidung/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>*@
+</head>
+
+<body>
+
+    <!-- Preloader Start -->
+    @*<div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="~/Content/nguoidung/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <!-- Preloader Start -->
+
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header ">
+                <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        Piano Sheet
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 fix-card header-right">
+                                <div class="form-box f-right ">
+                                    <input type="text" name="Search" placeholder="Search products" style="position: relative;top: 10px;">
+                                    <div class="search-icon" >
+                                        <i class="fas fa-search special-tag" style="position: relative;top: 10px;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                <!-- Main-menu -->
+                                <ul class="header-right f-right d-none d-lg-block d-flex justify-content-between">
+                                    @Html.Action("GioHang", "HomeNguoiDung")
+                                </ul>
+                                <!-- <div class="main-menu f-right d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a href="#">Pages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="login.html">Login</a></li>
+                                                    <li><a href="cart.html">Card</a></li>
+                                                    <li><a href="elements.html">Element</a></li>
+                                                    <li><a href="about.html">About</a></li>
+                                                    <li><a href="confirmation.html">Confirmation</a></li>
+                                                    <li><a href="cart.html">Shopping Cart</a></li>
+                                                    <li><a href="checkout.html">Product Checkout</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div> -->
+                            </div>
+
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    @RenderBody()
+    @*Modal đăng nhập*@
+    <!-- Modal -->
+    <div id="modalDangNhap" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <span id="thongbao-dangnhap" style="color:red;"></span>
+                    <br />
+                    <span>Email:</span>
+
+                    <input type="text" name="name" value="" id="email-dangnhap" placeholder="Please enter email." class="form-control" />
+                    <br />
+                    <span>Password:</span>
+
+                    <input type="password" name="name" value="" id="password-dangnhap" placeholder="Please enter password." class="form-control" />
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="btn-dangnhap">
+                        <span class="spinner-border spinner-border-sm" style="display:none;" id="loading-dangnhap"></span>
+                        Sign in
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    @*Modal đăng ký*@
+    <!-- Modal -->
+    <div id="modalDangKy" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign up</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <span id="thongbao-dangky" style="color:red;"></span>
+                    <br />
+                    <span>Email:</span>
+                    <input id="email-dangky" type="text" name="name" value="" placeholder="Please enter email." class="form-control" />
+                    <br />
+                    <span>Password:</span>
+                    <input id="password-dangky" type="password" name="name" value="" placeholder="Please enter password." class="form-control" />
+                    <br />
+                    <span>Confirm password:</span>
+                    <input id="confirmpassword-dangky" type="password" name="name" value="" placeholder="Please enter your password again." class="form-control" />
+                    <br />
+                    <span>Your name:</span>
+                    <input id="yourname-dangky" type="text" name="name" value="" placeholder="Please enter your name." class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-dangky">
+                        Sign up
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer>
+
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Piano Sheet</h4>
+                                <div class="footer-pera">
+                                    <p>
+                                        Piano Sheet provides you with the largest catalogue of piano sheet music.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-xl-3 col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <h4>Piano Sheet</h4>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>
+                                            Piano Sheet provides you with the largest catalogue of piano sheet music.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-5">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>About</h4>
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Contact us</a></li>
+                                    <li><a href="#">Our Products</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Commnunity</h4>
+                                <ul>
+                                    <li><a href="#">Help center</a></li>
+                                    <li><a href="#">Community Guidelines</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Privacy policies</h4>
+                                <ul>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Terms & Policies</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Copyright</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer bottom -->
+                <div class="row">
+                    <div class="col-xl-7 col-lg-7 col-md-7">
+                        <div class="footer-copy-right">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy; 2006-2020 by Piano Sheet
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5">
+                        <div class="footer-copy-right f-right">
+                            <!-- social -->
+                            <div class="footer-social">
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+
+    </footer>
+
+    <!-- JS here -->
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="~/Content/nguoidung/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="~/Content/nguoidung/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Content/nguoidung/js/popper.min.js"></script>
+    <script src="~/Content/nguoidung/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="~/Content/nguoidung/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="~/Content/nguoidung/js/owl.carousel.min.js"></script>
+    <script src="~/Content/nguoidung/js/slick.min.js"></script>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="~/Content/nguoidung/js/wow.min.js"></script>
+    <script src="~/Content/nguoidung/js/animated.headline.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="~/Content/nguoidung/js/jquery.scrollUp.min.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="~/Content/nguoidung/js/contact.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.form.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.validate.min.js"></script>
+    <script src="~/Content/nguoidung/js/mail-script.js"></script>
+    <script src="~/Content/nguoidung/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/Content/nguoidung/js/plugins.js"></script>
+    <script src="~/Content/nguoidung/js/main.js"></script>
+    <script type='text/javascript'>
+        jQuery(document).ready(function () {
+            function clearTextBox() {
+                $('#email-dangky').val("");
+                $('#password-dangky').val("");
+                $('#confirmpassword-dangky').val("");
+                $('#yourname-dangky').val("");
+            }
+            //Valdidation using jquery
+            function validate() {
+                var password = $('#password-dangky').val();
+                var isValid = true;
+                if ($('#email-dangky').val() == "") {
+                    $('#email-dangky').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#email-dangky').css('border-color', 'lightgrey');
+                }
+
+                if ($('#password-dangky').val() == "") {
+                    $('#password-dangky').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#password-dangky').css('border-color', 'lightgrey');
+                }
+
+
+
+                if ($('#confirmpassword-dangky').val() == "" || $('#confirmpassword-dangky').val() != password) {
+                    $('#confirmpassword-dangky').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#confirmpassword-dangky').css('border-color', 'lightgrey');
+                }
+
+                if ($('#yourname-dangky').val() == "") {
+                    $('#yourname-dangky').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#yourname-dangky').css('border-color', 'lightgrey');
+                }
+
+
+                return isValid;
+            }
+
+            $('#btn-dangnhap').click(function () {
+                $('#loading-dangnhap').show();
+                var empObj = {
+                    Email: $('#email-dangnhap').val(),
+                    MatKhau: $('#password-dangnhap').val(),
+                };
+                $.ajax({
+
+                    url: "/Login/Login/",
+                    data: JSON.stringify(empObj),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == 0) {
+                            $('#thongbao-dangnhap').text('Email or password is incorrect');
+                        }
+                        else {
+                            window.location.href = '/HomeNguoiDung/Index';
+                        }
+
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+
+            });
+            $('#btn-dangky').click(function () {
+                var res = validate();
+                if (res == false) {
+                    return false;
+                }
+                var empObj = {
+                    TenDangNhap: $('#email-dangky').val(),
+                    HoTen: $('#yourname-dangky').val(),
+                    MatKhau: $('#password-dangky').val(),
+                    Email: $('#email-dangky').val(),
+                };
+
+                $.ajax({
+
+                    url: "/Login/SignUp/",
+                    data: JSON.stringify(empObj),
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result == 0) {
+                            $('#thongbao-dangky').text('Email already exists');
+                        }
+                        else {
+                            window.location.href = '/HomeNguoiDung/Index';
+                        }
+
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+
+            });
+
+
+
+        });
+    </script>
+    @RenderSection("uploadsanphamnguoidung", required: false)
+    @RenderSection("chitietsanphamnguoidung", required: false)
+</body>
+</html>

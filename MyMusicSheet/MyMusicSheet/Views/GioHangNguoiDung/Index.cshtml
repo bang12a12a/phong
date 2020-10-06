@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<MyMusicSheet.Models.Model.NguoiDung.GioHangModel>
+<div class="container">
+    <table width="100%">
+        <thead>
+            <tr>
+                <th width="10%">STT</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.STT</td>
+                    @*<td><img src="@Url.Content("~/Images/"+ @item.Anh)" alt="Alternate Text" width="100%"/></td>*@
+                    <td>@item.TenSanPham</td>
+                    <td>@item.TenTacGia</td>
+                    <td>@item.Gia</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Pay Direct With Credit Card", "PaymentWithCreditCard", "GioHangNguoiDung")
+    @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "GioHangNguoiDung")
+    <a href="/HoaDonNguoiDung/TaoHoaDon">content</a>
+</div>
+

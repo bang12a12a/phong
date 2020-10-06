@@ -1,0 +1,58 @@
+﻿@model List<MyMusicSheet.Models.EF.GioHang>
+@{
+    /**/
+
+    var session = (MyMusicSheet.Common.SessionModel.NguoiDungSesssionModel)Session[MyMusicSheet.Common.SessionList.SessionList.NGUOIDUNG_SESSION];
+    var soluong = ViewBag.CountItem_GioHang;
+}
+@if (session == null)
+{
+    <li class="sign">
+        <a href="" data-toggle="modal" data-target="#modalDangKy">Sign up</a>
+        <a href="" data-toggle="modal" data-target="#modalDangNhap">Sign in</a>
+        
+    </li>
+}
+else
+{
+    <div class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" style="width: 40px; height: 40px;">
+            <img src="~/Content/nguoidung/img/feature_1.png" style="width: 50px; height: 50px; position:relative; top: 15px; border-radius:50%; border: 1px solid #eeeeee; padding:2px;" />
+        </a>
+        <div class="dropdown-menu" style="position:absolute; top:40px !important; ">
+            <a class="dropdown-item" href="/UploadNguoiDung/Index">Upload</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+        </div>
+    </div>
+
+
+}
+<li class=" d-none d-xl-block">
+    <div class="favorit-items">
+        <a href="#">
+            <i class="fas fa-upload" style="color:white; position: relative;
+    top: 15px;"></i>
+        </a>
+
+    </div>
+</li>
+<li>
+   
+    <div class="shopping-card">
+        <a href="/GioHangNguoiDung/Index">
+            <i class="fas fa-shopping-cart" style="color:white; position: relative;
+    top: 15px;"></i>
+        </a>
+        <span class="count-giohang">@soluong</span>
+        <ul class="sub-menu">
+            <li><a href="#">LỊCH SỬ GIAO DỊCH</a></li>
+            <li><a href="#">QUẢN LÝ LAO ĐỘNG</a></li>
+            <li><a href="#">DANH MỤC</a></li>
+            <li><a href="#">TRA CỨU DANH MỤC</a></li>
+            <li><a href="#">TRA CỨU</a></li>
+        </ul>
+    </div>
+    
+</li>
+
