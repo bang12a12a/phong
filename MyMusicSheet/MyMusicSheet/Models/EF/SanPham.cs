@@ -12,17 +12,14 @@ namespace MyMusicSheet.Models.EF
         [StringLength(50)]
         public string Id { get; set; }
 
-        [Required]
         public string Ten { get; set; }
 
         public string Anh { get; set; }
 
         public string Video { get; set; }
 
-        [Column(TypeName = "numeric")]
         public decimal? Gia { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string IdNguoiDung { get; set; }
 

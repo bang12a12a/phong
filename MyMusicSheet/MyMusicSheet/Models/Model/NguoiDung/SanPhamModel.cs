@@ -40,5 +40,6 @@ namespace MyMusicSheet.Models.Model.NguoiDung
         public string ListTenLoai { get; set; }
         public string TenNguoiDung { get; set; }
         public string DuongDanFileMidi { get; set; }
+        public int? SoTrang { get; set; }
     }
 }

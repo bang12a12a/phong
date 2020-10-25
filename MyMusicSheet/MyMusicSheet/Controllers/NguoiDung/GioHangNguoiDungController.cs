@@ -23,6 +23,7 @@ namespace MyMusicSheet.Controllers.NguoiDung
             if(session != null)
             {
                 int i = 0;
+                decimal? tongtien = 0;
                 var giohang = dao.getByUserId(session.Id);
                 var model = new List<GioHangModel>();
                 foreach(var item in giohang)
@@ -37,7 +38,9 @@ namespace MyMusicSheet.Controllers.NguoiDung
                     itemmodel.TenTacGia = db.NguoiDungs.FirstOrDefault(x => x.Id == sanpham.IdNguoiDung).HoTen;
                     itemmodel.Anh = sanpham.Anh;
                     model.Add(itemmodel);
+                    tongtien += sanpham.Gia;
                 }
+                ViewBag.TongTien = tongtien;
                 return View(model);
             }
             return View();
@@ -46,6 +49,15 @@ namespace MyMusicSheet.Controllers.NguoiDung
         public ActionResult ThemGioHang(string id)
         {
             var session = (MyMusicSheet.Common.SessionModel.NguoiDungSesssionModel)Session[MyMusicSheet.Common.SessionList.SessionList.NGUOIDUNG_SESSION];
+            //var giohang = dao.getByUserId(session.Id);
+            //if(giohang.Where(x=>x.IdSanPham == id).ToList().Count > 0)
+            //{
+
+            //}
+            //else
+            //{
+               
+            //}
             dao.ThemGioHang(session.Id, id);
             return RedirectToAction("Index","HomeNguoiDung");
         }

@@ -1,0 +1,17 @@
+﻿@model List<MyMusicSheet.Models.Model.NguoiDung.LoaiModel>
+<div class="form-check-inline1">
+    <label class="form-check-label" for="okoko">
+        <input type="radio" class="form-check-input" id="okoko" name="radtheloai" value="" checked> All
+    </label>
+</div>
+<br />
+@foreach (var item in Model)
+{
+    <div class="form-check-inline">
+        <label class="form-check-label" for="@item.Id">
+            <input type="radio" class="form-check-input" id="@item.Id" name="radtheloai" value="@item.Id"> @item.TenLoai
+        </label>
+    </div>
+    <br />
+}
+

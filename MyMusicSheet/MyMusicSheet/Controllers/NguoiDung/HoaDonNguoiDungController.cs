@@ -31,19 +31,23 @@ namespace MyMusicSheet.Controllers.NguoiDung
                 
                 var tongtiendonhang = listsanpham.Sum(x => x.Gia);
                 var detail = "";
-                foreach(var itemsanpham in listsanpham)
+                var khachhang = db.NguoiDungs.FirstOrDefault(x => x.Id == session.Id);
+                string content = "";
+                foreach (var itemsanpham in listsanpham)
                 {
                     detail += itemsanpham.Ten + ": </br> - Link pdf:" + itemsanpham.DuongDan;
+                    
+                    content = System.IO.File.ReadAllText(Server.MapPath("~/Template/hoadonnguoidung.html"));
+                    content = content.Replace("{{CustomerName}}", khachhang.HoTen);
+                    content = content.Replace("{{Order}}", tongtiendonhang.ToString());
+                    content = content.Replace("{{Detail}}", detail);
+                    content = content.Replace("{{Image}}", "https://kynguyenlamdep.com/wp-content/uploads/2020/01/seu-do.jpg");
                 }
-                var khachhang = db.NguoiDungs.FirstOrDefault(x=>x.Id ==session.Id);
-                string content = System.IO.File.ReadAllText(Server.MapPath("~/Template/hoadonnguoidung.html"));
-                content = content.Replace("{{CustomerName}}", khachhang.HoTen);
-                content = content.Replace("{{Order}}", tongtiendonhang.ToString());
-                content = content.Replace("{{Detail}}",  detail);
+                
 
                 try
                 {
-                    var toEmail = "bang12a12a1@gmail.com";
+                    var toEmail = "andrea.fuller1289@yahoo.com";
                     new MailHelper().SendMail(khachhang.Email, "Đơn hàng mới từ Estore", content);
                     new MailHelper().SendMail(toEmail, "Đơn hàng mới từ Estore", content);
                     foreach (var item in listsanpham_giohang_nguoidung)
@@ -59,10 +63,11 @@ namespace MyMusicSheet.Controllers.NguoiDung
                         giohangdao.XoaGioHang(item.Id);
                     }
                     db.SaveChanges();
-
-                    return View("ThanhCong","HomeNguoiDung");
+                    return RedirectToAction("ThanhCong","HomeNguoiDung");
                 }
                 catch (Exception e)
+
+
                 {
                     return RedirectToAction("ThatBai","HomeNguoiDung");
                 }

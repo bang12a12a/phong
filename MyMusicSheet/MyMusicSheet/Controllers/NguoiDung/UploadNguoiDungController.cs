@@ -28,7 +28,7 @@ namespace MyMusicSheet.Controllers.NguoiDung
             var url1 = now.Day.ToString() + now.Month.ToString() + now.Year.ToString() + now.Hour.ToString() + now.Minute.ToString() + now.Second.ToString();
             string[] stringanh = file.FileName.Split('.');
             var tenfile = UserId + url1 + stringanh[0];
-            file.SaveAs(Server.MapPath(@"~/FileUpload/" + tenfile + ".pdf"));
+            file.SaveAs(Server.MapPath(@"~/Content/FileUpload/" + tenfile + ".pdf"));
             var filePdf = ConvertPdfToJpg(tenfile, ImageSaveOptions.ImageFileType.Jpg);
             return tenfile + "/" + filePdf.sotrang;
 
@@ -37,13 +37,15 @@ namespace MyMusicSheet.Controllers.NguoiDung
         {
             var now = DateTime.Now;
             var url1 = now.Day.ToString() + now.Month.ToString() + now.Year.ToString() + now.Hour.ToString() + now.Minute.ToString() + now.Second.ToString();
-            file.SaveAs(Server.MapPath(@"~/FileMidiUpload/" + url1 + file.FileName));
+            file.SaveAs(Server.MapPath(@"~/Content/FileMidiUpload/" + url1 + file.FileName));
             return (url1 + "_" + file.FileName).ToString();
         }
         public static FilePDFModel ConvertPdfToJpg(string filename, ImageSaveOptions.ImageFileType outputFileType)
         {
-            string nguon = @"F:\Phong\Code\MyMusicSheet\MyMusicSheet\FileUpload\";
-            string dich = @"F:\Phong\Code\MyMusicSheet\MyMusicSheet\Images\";
+            //string nguon = @"F:\Phong\phong\MyMusicSheet\MyMusicSheet\FileUpload\";
+            //string dich = @"F:\Phong\phong\MyMusicSheet\MyMusicSheet\Images\";            
+            string nguon = Environment.CurrentDirectory ;
+            string dich = @"F:\Phong\phong\MyMusicSheet\MyMusicSheet\Content\Images\";
             var conversionConfig = new ConversionConfig { StoragePath = nguon, OutputPath = dich };
             var conversionHandler = new ConversionHandler(conversionConfig);
             var saveOptions = new ImageSaveOptions

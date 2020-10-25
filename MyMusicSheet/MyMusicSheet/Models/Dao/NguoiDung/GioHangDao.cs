@@ -13,6 +13,7 @@ namespace MyMusicSheet.Models.Dao.NguoiDung
             var listgiohang = db.GioHangs.Where(x => x.IdNguoiDung == userid).ToList();
             return listgiohang;
         }
+        
         public void ThemGioHang(string idnguoidung, string idsanpham)
         {
             var giohang = new GioHang();

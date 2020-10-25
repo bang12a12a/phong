@@ -38,6 +38,7 @@ namespace MyMyMusicSheet.Models.Dao.NguoiDung
             sanpham.IdNguoiDung = model.IdNguoiDung;
             sanpham.DuongDanFileMidi = model.DuongDanFileMidi;
             sanpham.MoTa = model.MoTa;
+            sanpham.SoTrang = model.SoTrang;
             db.SanPhams.Add(sanpham);
             string[] listloaiid = model.ListLoai.Split(',');
             int i = 0;

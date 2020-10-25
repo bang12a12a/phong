@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+            </ul>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img src="~/Content/nguoidung/img/men-banner-img.jpg" width="1100" height="300" />
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/nguoidung/img/men-banner-img1.jpg" width="1100" height="300" />
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Latest Products Start -->
+    <section class="latest-product-area padding-bottom">
+        <div class="container">
+            <div class="row product-btn d-flex justify-content-end align-items-end">
+                <!-- Section Tittle -->
+               
+                <div class="col-xl-12 col-lg-12 col-md-12" style="margin-top: 30px;">
+                    <div class="properties__button f-left">
+                        <!--Nav Button  -->
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">New</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Recommended</a>
+                            </div>
+                        </nav>
+                        <!--End Nav Button  -->
+                    </div>
+                </div>
+            </div>
+            <!-- Nav Card -->
+            <div class="tab-content" id="nav-tabContent">
+                <!-- card one -->
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                        @Html.Action("SanPhamMoi", "HomeNguoiDung")
+                    </div>
+                </div>
+                <!-- Card two -->
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row">
+                        @Html.Action("SanPhamMoi", "HomeNguoiDung")
+                    </div>
+                </div>
+                <!-- Card three -->
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="row">
+                        @Html.Action("SanPhamMoi", "HomeNguoiDung")
+                    </div>
+                </div>
+                <!-- card foure -->
+
+            </div>
+            <!-- End Nav Card -->
+        </div>
+    </section>
+    <!-- Latest Products End -->
+   
+    <div class="container">
+        <div class="newupload-nguoidungindex">
+            <span>New Upload</span>
+            <hr />
+        </div>
+        <table class="table table-bordered table-hover" width="100%">
+            <thead>
+                <tr>
+                    <th width="5%" class="center">
+                        Order
+                    </th>
+                    <th width="25%" class="center">
+                        Name sheet
+                    </th>
+                    <th width="20%" class="center">
+                        Category
+                    </th>
+                    <th width="15%" class="center">
+                        Author
+                    </th>
+                    <th width="15%" class="center">
+                        Price
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+        <div class="card-footer" style="background-color:white;">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="load-pagination"></ul>
+            </nav>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        loaddata(null, 1);
+    });
+    function loaddata(txtSeach, page) {
+        $.ajax({
+            url: "/HomeNguoiDung/List",
+            type: "GET",
+            data: { txtSearch: txtSeach, page: page },
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#loading-sanpham').hide();
+                var html = '';
+                $.each(result.data, function (key, item) {
+                    html += '<tr>';
+                    html += '<td width="5%" class="center">' + item.STT + '</td>';
+                    html += '<td width="25%">' + item.Ten + '</td>';
+                    html += '<td width="20%">' + item.ListTenLoai + '</td>';
+                    html += '<td width="20%">' + item.TenNguoiDung + '</td>';
+                    html += '<td width="15%"  class="table-center">$' + item.Gia + '</td>';
+                    html += '</tr>';
+                    var pagination_string = "";
+                    var pageCurrent = result.pageCurrent;
+                    var numSize = result.numSize;
+
+                    //create button previous
+                    if (pageCurrent > 1) {
+                        var pagePrevious = pageCurrent - 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                    }
+
+                    for (i = 1; i <= numSize; i++) {
+                        if (i == pageCurrent) {
+                            pagination_string += '<li class="page-item active"><a  class="page-link" data-page=' + i + '>' + pageCurrent + '</a></li>';
+                        } else {
+                            pagination_string += '<li class="page-item"><a  class="page-link" data-page=' + i + '>' + i + '</a></li>';
+                        }
+                    }
+
+                    //create button next
+                    if (pageCurrent > 0 && pageCurrent < numSize) {
+                        var pageNext = pageCurrent + 1;
+                        pagination_string += '<li class="page-item"><a href="" class="page-link"  data-page=' + pageNext + '>Next</a></li>';
+                    }
+
+                    //load pagination
+                    $("#load-pagination").html(pagination_string);
+
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    $("body").on("click", ".pagination li a", function (event) {
+        event.preventDefault();
+        var page = $(this).attr('data-page');
+
+        //load event pagination
+        var txtSearch = $(".txtSearch").val();
+        if (txtSearch != "") {
+            loaddata(txtSearch, page)
+        }
+        else {
+            loaddata(null, page);
+        }
+
+    });
+</script>

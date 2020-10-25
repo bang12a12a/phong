@@ -23,7 +23,11 @@ namespace MyMusicSheet.Models.EF
         {
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.Gia)
-                .HasPrecision(18, 0);
+                .HasPrecision(3, 2);
+
+            modelBuilder.Entity<SanPham>()
+                .Property(e => e.Gia)
+                .HasPrecision(3, 2);
         }
     }
 }

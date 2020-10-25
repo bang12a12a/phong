@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+   
+    <div class="row">
+        <div class="col-xl-2 col-md-2 timkiemsanpham-left">
+            <br />
+            <ul>
+                <li style="text-align:center">
+                    <span class="title-timkiemleft">Genre Of Music</span>
+                </li>
+                @Html.Action("Index", "Category")
+            </ul>
+        </div>
+        <div class="col-xl-10 col-md-10 timkiemsanpham-right">
+            <br />
+            <div class="row">
+                <div class="col-md-7"></div>
+                <div class="col-md-4 row">
+                    <input type="text" name="name" value="@ViewBag.Text" class="form-control col-md-11" id="txtTimKiemSanPham" />
+                    <div class="col-md-1"></div>
+                </div>
+                
+
+                <button class="btn btn-success col-md-1" id="btnTimKiemSanPham">Search</button>
+            </div>
+            <hr />
+            <br />
+            <div class="timkiemtheo">
+                <span>Search results for "</span><span id="txtTimKiemTheo" style="font-weight:600; font-style: italic;"></span><span>"</span>
+            </div>
+            <br />
+            <div class="listsanpham row" id="listsanpham-timkiem-nguoidung">
+            </div>
+            <div class="" id="norecordtimkiemsanpham" style="display:none;">No Record!!!!!!!!</div>
+            <div class="card-footer" style="background-color:white;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="load-pagination"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+@section timkiemtheotheloai{
+    <script>
+        var typeid = '';
+        $(document).ready(function () {
+            $('.form-box').css('display','none');
+            var txtTimKiem = $('#txtTimKiemSanPham').val();
+            $('#txtTimKiemTheo').text(txtTimKiem);
+            loaddata(txtTimKiem, 1, null);
+            $('input[name="radtheloai"]:checked').each(function (i) {
+                typeid = $(this).val();
+            });;
+        });
+        $('input[name="radtheloai"]').click(function () {
+            $('.timkiemtheo').css('display', 'none');
+            typeid = $(this).val();
+            if (typeid == null || typeid == "") {
+                loaddata(null, 1, null)
+            }
+            else {
+                loaddata(null, 1, typeid);
+            }
+            //var txtSearch = $("#txtTimKiemSanPham").val();
+            //    if (txtSearch != "") {
+            //        if (typeid == null || typeid == "") {
+            //            loaddata(txtSearch, 1, null)
+            //        }
+            //        else {
+            //            loaddata(txtSearch, 1, typeid);
+            //        }
+
+            //    }
+            //    else {
+            //        if (typeid == null || typeid == "") {
+            //            loaddata(txtSearch, 1, null)
+            //        }
+            //        else {
+            //            loaddata(txtSearch, 1, typeid);
+            //        }
+            //    }
+            
+        });
+        function loaddata(txtSeach, page, type) {
+            $.ajax({
+                url: "/SanPhamNguoiDung/List",
+                type: "GET",
+                data: { text: txtSeach, page: page, type: type },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var html = '';
+                    if (result.data.length == 0) {
+                        $("#load-pagination").html('');
+                        $("#norecordtimkiemsanpham").css('display', 'block');
+                        $(".card-footer").css('border', 'none');
+
+                    }
+                    
+                    $.each(result.data, function (key, item) {
+                        var pagination_string = "";
+                        var pageCurrent = result.pageCurrent;
+                        var numSize = result.numSize;
+                        html += '<div class="col-md-6">';
+                        html += '<div class="itemsanphamtimkiem">';
+                        html += '<div class="row">';
+                        html += '<div class="col-md-4">';
+                        html += '<img width="50%" src="/Content/Images/' + item.Anh + '"/> </td> <br /> </div>';
+                        html += '<div class="col-md-8">';
+                        html += '<span class="tentacgia">' + item.Ten + '</span > <br />';
+                        html += '<span class="giaban">' + item.Gia +'</span> <br />';
+                        html += '<span>' +item.MoTa +'</span> <br/>';
+                        html += '<a href="">Read more</a> <br />';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div> </div> <hr />';
+                        
+
+                        //create button previous
+                        if (pageCurrent > 1) {
+                            var pagePrevious = pageCurrent - 1;
+                            pagination_string += '<li class="page-item"><a href="" class="page-link" data-page=' + pagePrevious + '>Previous</a></li>';
+                        }
+
+                        for (i = 1; i <= numSize; i++) {
+                            if (i == pageCurrent) {
+                                pagination_string += '<li class="page-item active"><a  class="page-link" data-page=' + i + '>' + pageCurrent + '</a></li>';
+                            } else {
+                                pagination_string += '<li class="page-item"><a  class="page-link" data-page=' + i + '>' + i + '</a></li>';
+                            }
+                        }
+
+                        //create button next
+                        if (pageCurrent > 0 && pageCurrent < numSize) {
+                            var pageNext = pageCurrent + 1;
+                            pagination_string += '<li class="page-item"><a href="" class="page-link"  data-page=' + pageNext + '>Next</a></li>';
+                        }
+                        
+                        //load pagination
+                        $("#load-pagination").html(pagination_string);
+
+                    });
+                    $('#listsanpham-timkiem-nguoidung').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        $("body").on("click", ".pagination li a", function (event) {
+            event.preventDefault();
+            var page = $(this).attr('data-page');
+
+            //load event pagination
+            var txtSearch = $("#txtTimKiemSanPham").val();
+            if (txtSearch != "") {
+                if (typeid == null || typeid == "") {
+                    loaddata(txtSearch, page, null);
+                }
+                else {
+                    loaddata(txtSearch, page, typeid);
+                }
+            }
+            else {
+                if (typeid == null || typeid == "") {
+                    loaddata( null, page, null);
+                }
+                else {
+                    loaddata(null, page, typeid);
+                }
+            }
+        });
+        $('#txtTimKiemSanPham').keypress(function (event) {
+            if (event.keyCode == 13 || event.which == 13) {
+                event.preventDefault();  //Không cho submit from bạn có thể bỏ nều k cần
+                btnTimKiemSanPham();   
+            }
+        });
+        function btnTimKiemSanPham() {
+            $('.timkiemtheo').css('display', 'block');
+            var txtSearch = $("#txtTimKiemSanPham").val();
+            $('#txtTimKiemTheo').text(txtSearch);
+            if (txtSearch != "") {
+                if (typeid == null || typeid == "") {
+                    loaddata(txtSearch, 1, null)
+                }
+                else {
+                    loaddata(txtSearch, 1, typeid);
+                }
+
+            }
+            else {
+                if (typeid == null || typeid == "") {
+                    loaddata(txtSearch, 1, null)
+                }
+                else {
+                    loaddata(txtSearch, 1, typeid);
+                }
+            }
+        }
+        $("#btnTimKiemSanPham").click(function () {
+            btnTimKiemSanPham()
+
+        });
+        
+
+    </script>
+}
+

@@ -12,6 +12,7 @@ namespace MyMusicSheet.Models.EF
         [StringLength(50)]
         public string Id { get; set; }
 
+        [StringLength(50)]
         public string TenLoai { get; set; }
     }
 }

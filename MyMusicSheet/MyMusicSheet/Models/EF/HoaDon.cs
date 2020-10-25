@@ -18,7 +18,6 @@ namespace MyMusicSheet.Models.EF
         [StringLength(50)]
         public string IdSanPham { get; set; }
 
-        [Column(TypeName = "numeric")]
         public decimal? Gia { get; set; }
 
         public DateTime? Ngay { get; set; }
